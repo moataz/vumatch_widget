@@ -33,7 +33,7 @@ vuMatch = function(image_url, category){
             var vuMatchRequest = $.ajax({
 
                 type: 'POST'
-                ,url: 'http://54.161.162.216:8082/api/vumatch' //VuMatch API Server Address
+                ,url: 'http://node7.vumatch.com:8082/api/vumatch' //VuMatch API Server Address
                 ,data: {
 
                     cat : category, // (REQUIRED) Product category to pull recommendations from [wshoes | dress]
@@ -56,7 +56,7 @@ vuMatch = function(image_url, category){
             // This fills in the product image and information into the widget. \
             // The API just returns the product image so you will need to pull additional product information \
             // from your data source and will it in the product_details JSON object array.
-            vuMatchRequest.success(function(data) {
+            vuMatchRequest.success(function(recommendations) {
 
                 // Once the response is received, details of each of the recommended product would need \
                 // to be fetched and filled into the product_details JSON array. If only product images \
@@ -72,11 +72,11 @@ vuMatch = function(image_url, category){
                                         {title: 'Product SEVEN', desc: 'SEVENTH product description', price: '$799', link: 'http://abc.com/a.html'},
                                     ];
 
-                var dataJSON = JSON.parse(data);
+                var recommendationsJSON = JSON.parse(recommendations);
 
-                for(var i=1, j=0; i<=data.length, j<data.length; i++, j++){
+                for(var i=1, j=0; i<=recommendationsJSON.length, j<recommendationsJSON.length; i++, j++){
 
-                    document.getElementById("result"+i).src = dataJSON.recommendations[j].imageURL;
+                    document.getElementById("result"+i).src = recommendationsJSON.recommendations[j].imageURL;
                     
                     // Fill product information
                     var product_url = "<a href='"+product_details[j].link+"'>";
