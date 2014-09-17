@@ -1,4 +1,4 @@
-#carousel_container{
+#vumatch_widget{
 
 	position: relative;
 	top: 0px;
@@ -8,7 +8,7 @@
 	overflow: hidden; 
 }
 
-.slides_container {
+.recommendations {
 
 	cursor: move;
 	position: absolute;
@@ -63,14 +63,14 @@
 	font-weight: 400;
 }
 
-#carousel_container #u{
+#vumatch_widget #u{
 
 	position: absolute; 
 	top: 0px; 
 	left: 0px;
 }
 
-#carousel_container #loader_style{
+#vumatch_widget #loader_style{
 
 	position: absolute;
 	display: block;

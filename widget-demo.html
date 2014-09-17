@@ -1,135 +1,89 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<body onLoad="vuMatch('http://blueowlcreative.com/fancycart/image/cache/data/shoes-800x800.jpg')">
-    <!-- use jssor.slider.min.js instead for release -->
-    <!-- jssor.slider.min.js = (jssor.core.js + jssor.utils.js + jssor.slider.js) -->
+<!-- (Optional) Calls the vuMatch() function with a product image URL to fetch recommendations-->
+<body onLoad="vuMatch('http://www.clichemag.com/wp-content/uploads/2014/08/fancy-dress-.jpg', 'dress')">
+
+    <!-- Stylesheet for the widget -->
     <link rel="stylesheet" href="css/vumatch-style.css" media="screen" />
+    
+    <!-- Carousel core (JSSOR) -->
     <script type="text/javascript" src="js/jssor.core.js"></script>
 
-    <script type="text/javascript">
+    <!-- VuMatch API call config + Carousel configuration -->
+    <script type="text/javascript" src="js/vumatch.js"></script>
 
-        vuMatch = function(image_url){
+    <!-- This is the main container for the vuMatch recommendations box -->
+    <div id="vumatch_widget">
 
-            var vuMatchRequest = $.ajax({
+        <!-- This is the loading GIF which shows up when pulling image -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;"></div>
 
-                type: 'POST'
-                ,url: 'http://54.161.162.216:8082/api/vumatch'
-                ,data: {
+        <!-- This holds all the visually similar products pulled from VuMatch API. # of recommendations are fixed to 7 -->
+        <div u="slides" class="recommendations">
 
-                    cat : 'wshoes',
-                    customer_id: 'demo',
-                    app_key : 'dee1eb769deb1c7ed850fc2ab18c31e7',
-                    token : '3hbv1ionxeoyl9pzsy49e7bl5yh45i830nxuono4vzq309ii80whj9mu022rwge7',
-                    productURL: image_url
+        <!-- Initially, dummy values for the product image and details (title, description & price) are filled. -->
 
-                }
-
-                ,dataType: 'json'
-            });
-
-
-
-            vuMatchRequest.fail(function(xhr, textStatus){
-                return false;
-            });
-          
-            vuMatchRequest.success(function(data) {
-
-                // Once the response is received, details of each of the recommended product would need
-                // to be fetched and filled into the product_details JSON array. If only product images
-                // need to be shown and no details (title, short description and price) then you can fill
-                // the product array with empty strings.
-
-                var product_details = [
-                                        {title: 'Product ONE', desc: 'FIRST product description', price: '$199', link: 'http://abc.com/a.html'},
-                                        {title: 'Product TWO', desc: 'SECOND product description', price: '$299', link: 'http://abc.com/a.html'},
-                                        {title: 'Product THREE', desc: 'THIRD product description', price: '$399', link: 'http://abc.com/a.html'},
-                                        {title: 'Product FOUR', desc: 'FOURTH product description', price: '$499', link: 'http://abc.com/a.html'},
-                                        {title: 'Product FIVE', desc: 'FIFTH product description', price: '$599', link: 'http://abc.com/a.html'},
-                                        {title: 'Product SIX', desc: 'SIXTH product description', price: '$699', link: 'http://abc.com/a.html'},
-                                        {title: 'Product SEVEN', desc: 'SEVENTH product description', price: '$799', link: 'http://abc.com/a.html'},
-                                    ];
-
-                var dataJSON = JSON.parse(data);
-
-                for(var i=1, j=0; i<=data.length, j<data.length; i++, j++){
-
-                    document.getElementById("result"+i).src = dataJSON.recommendations[j].imageURL;
-                    
-                    // Fill product information
-                    var product_url = "<a href='"+product_details[j].link+"'>";
-                    document.getElementById("recommendation"+i).children[1].innerHTML = product_url+product_details[j].title+'</a>';
-                    document.getElementById("recommendation"+i).children[2].innerHTML = product_url+product_details[j].desc+'</a>';
-                    document.getElementById("recommendation"+i).children[3].innerHTML = product_url+product_details[j].price+'</a>';
-                }
-
-
-                return true;
-            });
-    }
-
-    </script>
-
-    <div id="carousel_container">
-
-        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
-            <div id="loader_style"></div>
-        </div>
-
-        <div u="slides" class="slides_container">
             <div class="slide" id="recommendation1">
                 <img u="image" src="img/dress1.jpg" onError="this.src = 'img/blank.png'" id="result1"/>
-                <div class="title" id="title1"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation2">
                 <img u="image" src="img/dress2.jpg" onError="this.src = 'img/blank.png'" id="result2"/>
-                <div class="title"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation3">
                 <img u="image" src="img/dress3.jpg" onError="this.src = 'img/blank.png'" id="result3"/>
-                <div class="title"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation4">
                 <img u="image" src="img/dress4.jpg" onError="this.src = 'img/blank.png'" id="result4"/>
-                <div class="title"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation5">
                 <img u="image" src="img/dress5.jpg" onError="this.src = 'img/blank.png'" id="result5"/>
-                <div class="title"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation6">
                 <img u="image" src="img/dress6.jpg" onError="this.src = 'img/blank.png'" id="result6"/>
-                <div class="title"> Product Name </div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
             <div class="slide" id="recommendation7">
                 <img u="image" src="img/dress7.png" onError="this.src = 'img/blank.png'" id="result7"/>
-                <div class="title">Product Name</div>
-                <div class="desc"> This is some sort of description but this seems to be a long </div>
-                <div class="price"> $299 </div>
+                <div class="title"> [PRODCT_NAME] </div>
+                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
+                <div class="price"> $[PRODUCT_PRICE] </div>
             </div>
+
         </div>
 
+        <!-- Left and Right navigation arrows. There are other styles available which can be set in vumatch-style.css -->
         <span u="arrowleft" class="jssora03l" style="width: 55px; height: 55px; top: 123px; left: 8px;"></span>
         <span u="arrowright" class="jssora03r" style="width: 55px; height: 55px; top: 123px; right: 8px"></span>
 
     </div>
 
     <script>
-        //This function needs to be called on page load. This initializes the carousel.
-        carousel_init('carousel_container');
+        //Put this inside window.onload event or <body onload="vumatch_init('vumatch_widget');">
+        vumatch_init('vumatch_widget');
     </script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
