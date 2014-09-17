@@ -20,8 +20,8 @@ This widget makes use of the JSSOR slider for the product image thumbnail carous
 *    **vumatch-demo.html**
 This page shows the VuMatch widget in action. On page load, a sample product image URL is passed to the **```vuMatch(...)```** function which makes a call to the VuMatch REST API and pulls 7 product images. These images are then populated into the widget. Placeholder product information (title, description & price) are filled in. You will need to pull in this information from your website DB and fill in the title, description and pricing information as well as the product page URL.
 
-## VuMatch REST API Call
-The **```vuMatch(...)```** makes the REST API call to VuMatch API. The required and optional params are:
+## VuMatch REST Call Config
+The ```vuMatch(...)``` in ```js/vumatch.js``` makes the REST API call to VuMatch API. The required and optional config params are:
 
 ```javascript
 
@@ -36,5 +36,53 @@ data: {
 
 ```
 
+## Populating Product Image & Info After REST Call
+Once your product page loads, you'll need to make the call to ```vuMatch(...)``` with the product image URL and category (wshoes | dress) in order to pull in visually similar recommendations. Once the API sends back results (JSON response), it updates the product images in the widget:
 
+```javascript
+
+//The 'recommendations' are returned by the VuMatch API. This response is parsed into JSON and then populated into the widget.
+var recommendationsJSON = JSON.parse(recommendations);
+
+	// Loop over the recommendations. For demo, the API returns 7 similar products.
+	for(var i=1, j=0; i<=recommendationsJSON.length, j<recommendationsJSON.length; i++, j++){
+
+		//The widget has div elements named 'recommendation1' (and so on...) to hold product image & info. 
+		document.getElementById("result"+i).src = recommendationsJSON.recommendations[j].imageURL;
+
+			// Fill product information
+            var product_url = "<a href='"+product_details[j].link+"'>";
+            document.getElementById("recommendation"+i).children[1].innerHTML = product_url+product_details[j].title+'</a>';
+            document.getElementById("recommendation"+i).children[2].innerHTML = product_url+product_details[j].desc+'</a>';
+			document.getElementById("recommendation"+i).children[3].innerHTML = product_url+product_details[j].price+'</a>';
+	}
+
+```
+
+## Filling Product Information
+VuMatch API returns the image URLs of the visually similar products. You will have to pull in other information pieces about each of the recommended product: title, short description and price. Currently, there's a place holder for these product info pieces:
+
+```javascript
+
+var product_details = [
+
+	{title: 'Product ONE', desc: 'FIRST product description', price: '$199', link: 'http://store.com/product_page.html'},
+	{title: 'Product TWO', desc: 'SECOND product description', price: '$299', link: 'http://store.com/product_page.html'},
+	{title: 'Product THREE', desc: 'THIRD product description', price: '$399', link: 'http://store.com/product_page.html'},
+	{title: 'Product FOUR', desc: 'FOURTH product description', price: '$499', link: 'http://store.com/product_page.html'},
+	{title: 'Product FIVE', desc: 'FIFTH product description', price: '$599', link: 'http://store.com/product_page.html'},
+	{title: 'Product SIX', desc: 'SIXTH product description', price: '$699', link: 'http://store.com/product_page.html'},
+	{title: 'Product SEVEN', desc: 'SEVENTH product description', price: '$799', link: 'http://store.com/product_page.html'}
+	
+];
+
+```
+
+One possible way is to trigger another call into your DB to pull product information based on either the product image URL or SKU which is returned for VuMatch professional users. This call should be triggered inside the ```vuMatchRequest.success(function(...){...})``` function.
+
+
+## Getting Started
+You can integrate VuMatch widget into your eCommerce store in less than 3 hours and add AI powered product recommendations.
+
+[Contact Us](https://developers.vufind.com/signup.php "Contact Us")
 
