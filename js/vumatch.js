@@ -37,9 +37,9 @@ vuMatch = function(image_url, category){
                 ,data: {
 
                     cat : category, // (REQUIRED) Product category to pull recommendations from [wshoes | dress]
-                    customer_id: 'demo', // (REQUIRED) Customer album name. Default is 'demo'
-                    app_key : 'dee1eb769deb1c7ed850fc2ab18c31e7', // (REQUIRED) Your VuMatch API key
-                    token : '3hbv1ionxeoyl9pzsy49e7bl5yh45i830nxuono4vzq309ii80whj9mu022rwge7', // (REQUIRED) Your VuMatch API token
+                    customer_id: [YOUR_CUSTOMER_ID]
+                    app_key : [YOUR_API_KEY]
+                    token : [YOUR_API_TOKEN]
                     productURL: image_url // (REQUIRED) Product image URL to pull visual recommendations
 
                 }
