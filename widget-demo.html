@@ -1,17 +1,23 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<!-- (Optional) Calls the vuMatch() function with a product image URL to fetch recommendations-->
-<body onLoad="vuMatch('http://www.clichemag.com/wp-content/uploads/2014/08/fancy-dress-.jpg', 'dress')">
+<head>
 
-    <!-- Stylesheet for the widget -->
-    <link rel="stylesheet" href="css/vumatch-style.css" media="screen" />
-    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
     <!-- Carousel core (JSSOR) -->
     <script type="text/javascript" src="js/jssor.core.js"></script>
 
     <!-- VuMatch API call config + Carousel configuration -->
     <script type="text/javascript" src="js/vumatch.js"></script>
+
+    <!-- Stylesheet for the widget -->
+    <link rel="stylesheet" href="css/vumatch-style.css" media="screen" />
+
+</head>
+
+<!-- (Optional) Calls the vuMatch() function with a product image URL to fetch recommendations-->
+<body onLoad="JavaScript:vuMatch('http://www.clichemag.com/wp-content/uploads/2014/08/fancy-dress-.jpg', 'wshoes')">
 
     <!-- This is the main container for the vuMatch recommendations box -->
     <div id="vumatch_widget">
@@ -26,9 +32,9 @@
 
             <div class="slide" id="recommendation1">
                 <img u="image" src="img/dress1.jpg" onError="this.src = 'img/blank.png'" id="result1"/>
-                <div class="title"> [PRODCT_NAME] </div>
-                <div class="desc"> [PRODUCT_DESCRIPTION] </div>
-                <div class="price"> $[PRODUCT_PRICE] </div>
+                <div class="title"> <a class="recommendation1l" href="#">[PRODCT_NAME] </a></div>
+                <div class="desc"> <a class="recommendation1l" href="#">[PRODUCT_DESCRIPTION] </a></div>
+                <div class="price"> <a class="recommendation1l" href="#">$[PRODUCT_PRICE] </a></div>
             </div>
 
             <div class="slide" id="recommendation2">
@@ -85,9 +91,6 @@
         //Put this inside window.onload event or <body onload="vumatch_init('vumatch_widget');">
         vumatch_init('vumatch_widget');
     </script>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../js/jquery-1.7.1.min.js"><\/script>')</script>
 
 </body>
 </html>

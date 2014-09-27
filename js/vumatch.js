@@ -26,6 +26,11 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+var settings =  {
+                    "customer_id" : [YOUR_CUSTOMER_ID],
+                    "app_key": [YOUR_APP_KEY],
+                    "token": [YOUR_API_TOKEN]
+                };
 
 // VuMatch REST API call and filling visually products into the widget.
 vuMatch = function(image_url, category){
@@ -33,13 +38,13 @@ vuMatch = function(image_url, category){
             var vuMatchRequest = $.ajax({
 
                 type: 'POST'
-                ,url: 'http://node7.vumatch.com:8082/api/vumatch' //VuMatch API Server Address
+                ,url: 'http://node7.vufind.com/api/vumatch' //VuMatch API Server Address
                 ,data: {
 
                     cat : category, // (REQUIRED) Product category to pull recommendations from [wshoes | dress]
-                    customer_id: [YOUR_CUSTOMER_ID]
-                    app_key : [YOUR_API_KEY]
-                    token : [YOUR_API_TOKEN]
+                    customer_id: settings.customer_id,
+                    app_key : settings.app_key,
+                    token : settings.token,
                     productURL: image_url // (REQUIRED) Product image URL to pull visual recommendations
 
                 }
@@ -50,6 +55,7 @@ vuMatch = function(image_url, category){
 
             // In case the REST call fails, you may fill random images in the widget too.
             vuMatchRequest.fail(function(xhr, textStatus){
+                alert("FALSE");
                 return false;
             });
           
@@ -63,23 +69,24 @@ vuMatch = function(image_url, category){
                 // need to be shown and no details (title, short description and price) then you can fill \
                 // the product array with empty strings.
                 var product_details = [
-                                        {title: 'Product ONE', desc: 'FIRST product description', price: '$199', link: 'http://abc.com/a.html'},
-                                        {title: 'Product TWO', desc: 'SECOND product description', price: '$299', link: 'http://abc.com/a.html'},
-                                        {title: 'Product THREE', desc: 'THIRD product description', price: '$399', link: 'http://abc.com/a.html'},
-                                        {title: 'Product FOUR', desc: 'FOURTH product description', price: '$499', link: 'http://abc.com/a.html'},
-                                        {title: 'Product FIVE', desc: 'FIFTH product description', price: '$599', link: 'http://abc.com/a.html'},
-                                        {title: 'Product SIX', desc: 'SIXTH product description', price: '$699', link: 'http://abc.com/a.html'},
-                                        {title: 'Product SEVEN', desc: 'SEVENTH product description', price: '$799', link: 'http://abc.com/a.html'},
+                                        {title: 'Product ONE', desc: 'FIRST product description', price: '$199', link: '#'},
+                                        {title: 'Product TWO', desc: 'SECOND product description', price: '$299', link: '#'},
+                                        {title: 'Product THREE', desc: 'THIRD product description', price: '$399', link: '#'},
+                                        {title: 'Product FOUR', desc: 'FOURTH product description', price: '$499', link: '#'},
+                                        {title: 'Product FIVE', desc: 'FIFTH product description', price: '$599', link: '#'},
+                                        {title: 'Product SIX', desc: 'SIXTH product description', price: '$699', link: '#'},
+                                        {title: 'Product SEVEN', desc: 'SEVENTH product description', price: '$799', link: '#'},
                                     ];
 
                 var recommendationsJSON = JSON.parse(recommendations);
 
-                for(var i=1, j=0; i<=recommendationsJSON.length, j<recommendationsJSON.length; i++, j++){
+                for(var i=1, j=0; i<=recommendationsJSON.recommendations.length, j<recommendationsJSON.recommendations.length; i++, j++){
 
                     document.getElementById("result"+i).src = recommendationsJSON.recommendations[j].imageURL;
                     
+
                     // Fill product information
-                    var product_url = "<a href='"+product_details[j].link+"'>";
+                    var product_url = "<a class='"+category+"' href='"+product_details[j].link+"'>";
                     document.getElementById("recommendation"+i).children[1].innerHTML = product_url+product_details[j].title+'</a>';
                     document.getElementById("recommendation"+i).children[2].innerHTML = product_url+product_details[j].desc+'</a>';
                     document.getElementById("recommendation"+i).children[3].innerHTML = product_url+product_details[j].price+'</a>';
@@ -121,3 +128,6 @@ vumatch_init = function (containerId) {
                 $JssorUtils$.$OnWindowResize(window, ScaleSlider);
             }
         };
+
+function vumatchProduct(_c, _p){ $.ajax({ type: 'GET' ,url: 'http://node7.vufind.com/api/vumatch/product' ,async: false ,data: {c : _c, cid : settings.customer_id, u : _p, }});}
+$(document).ready(function(){ $("#recommendation1").click(function(){vumatchProduct(document.getElementById("recommendation1").children[1].children[0].className, document.getElementById("recommendation1").children[1].children[0].href.toString());}); $("#recommendation2").click(function(){vumatchProduct(document.getElementById("recommendation2").children[1].children[0].className, document.getElementById("recommendation2").children[1].children[0].href.toString());});    $("#recommendation3").click(function(){vumatchProduct(document.getElementById("recommendation3").children[1].children[0].className, document.getElementById("recommendation3").children[1].children[0].href.toString());});    $("#recommendation4").click(function(){vumatchProduct(document.getElementById("recommendation4").children[1].children[0].className, document.getElementById("recommendation4").children[1].children[0].href.toString());});   $("#recommendation5").click(function(){vumatchProduct(document.getElementById("recommendation5").children[1].children[0].className, document.getElementById("recommendation5").children[1].children[0].href.toString());});    $("#recommendation6").click(function(){vumatchProduct(document.getElementById("recommendation6").children[1].children[0].className, document.getElementById("recommendation6").children[1].children[0].href.toString());});    $("#recommendation7").click(function(){vumatchProduct(document.getElementById("recommendation7").children[1].children[0].className, document.getElementById("recommendation7").children[1].children[0].href.toString());});});
