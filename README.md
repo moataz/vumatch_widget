@@ -26,12 +26,12 @@ The ```vuMatch(...)``` in ```js/vumatch.js``` makes the REST API call to VuMatch
 ```javascript
 
 type: 'POST',
-url: 'http://54.161.162.216:8082/api/vumatch' //VuMatch API Server Address,
+url: [VUMATCH_API_URL],
 data: {
 	cat : category, // [REQUIRED] Product category. Could be 'dress' (women dresses) or 'wshoes' (women shoes)
-    customer_id: 'demo', // [REQUIRED] Customer ID. Put in your unique ID.
-	app_key : 'dee1eb769deb1c7ed850fc2ab18c31e7', // [REQUIRED] Your VuMatch API key
-	token : '3hbv1ionxeoyl9pzsy49e7bl5yh45i830nxuono4vzq309ii80whj9mu022rwge7', // [REQUIRED] Your VuMatch API token
+    customer_id: [YOUR_CUSTOMER_ID]
+	app_key : [YOUR_APP_KEY]
+	token : [YOUR_APP_TOKEN]
 	productURL: image_url // [REQUIRED] Product image URL to pull visual recommendations
 
 ```
