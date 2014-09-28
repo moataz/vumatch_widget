@@ -1,5 +1,5 @@
 /*
-* VuMatch Widget v0.5
+* VuMatch Widget v1.1
 * http://www.vufind.com/
 * 
 * TERMS OF USE - vumatch

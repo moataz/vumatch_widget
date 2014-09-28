@@ -86,3 +86,8 @@ You can integrate VuMatch widget into your eCommerce store in less than 3 hours 
 
 [Contact Us](https://developers.vufind.com/signup.php "Contact Us")
 
+===============================================
+
+###v1.1
+VuMatch widget released for use.
+
